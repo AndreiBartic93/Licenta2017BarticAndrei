@@ -1,0 +1,166 @@
+package gui;
+
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.KeyStroke;
+
+import jssc.SerialPortException;
+import pc_ArduinoComm.SendCommand;
+
+public class EnvironmentDataPanel {
+	
+	private JPanel settingsPanel;
+	private JLabel enviromentLabel;	
+	private JLabel temperatureLabel;	
+	private JLabel humidityLabel;	
+	private JButton getEnvironmentData;
+	private ImageIcon temperature;
+	
+	
+	
+	private JComboBox portList;
+	private JLabel portListTitle;
+	private JLabel portListResult;
+	private JButton submitPort;
+	private String choosenPort=null;
+	private SendCommand sendCommand;
+	private JPanel panel;
+	
+	public EnvironmentDataPanel(JPanel panel, SendCommand sendCommand){
+	 	this.sendCommand = sendCommand;
+	 	this.panel = panel;
+	}
+
+	private void doEnvironmentLabels(){
+		this.enviromentLabel = new JLabel("Environment info:");
+		this.humidityLabel = new JLabel("Humidity:");
+		this.enviromentLabel.setBounds(10, 35, 110, 20);
+		this.panel.add(enviromentLabel);	
+	}
+
+	private JLabel doTemperatureLabel(int value){
+		this.temperatureLabel = new JLabel("Temperature: "+value);
+		this.temperatureLabel.setBounds(400, 80, 110, 20);
+		this.panel.add(temperatureLabel);
+		return temperatureLabel;
+	}
+
+	private JLabel doHumidityLabel(int value){
+		this.humidityLabel = new JLabel("Humidity: "+value);
+		this.humidityLabel.setBounds(400, 100, 110, 20);
+		return humidityLabel;
+	}
+	
+	private JLabel doTemperatureImage(){
+	        BufferedImage img = null;
+	        JLabel tempImage = null;
+			try {
+				img = ImageIO.read(new File("img/temperature.png"));
+				 ImageIcon icon = new ImageIcon(img);
+		         tempImage = new JLabel(icon);
+		         tempImage.setBounds(10, 160, 50, 50);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	      return tempImage;
+	}
+	
+	private JLabel doHumidityImage(){
+        BufferedImage img = null;
+        JLabel humImage = null;
+		try {
+			img = ImageIO.read(new File("img/humidity.png"));
+			 ImageIcon icon = new ImageIcon(img);
+			 humImage = new JLabel(icon);
+			 humImage.setBounds(10, 100, 50, 50);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+      return humImage;
+}
+	
+	private void doEnvironmentButton(){
+		this.getEnvironmentData = new JButton("Refresh");
+		this.getEnvironmentData.setBounds(130,35,100,20);
+		
+		int temperatureValue;
+		getEnvironmentData.addActionListener( new ActionListener()
+		{
+		    public void actionPerformed(ActionEvent e)
+		    {
+		    	try {
+					sendCommand.writeCommand("E");
+					byte[] infoReceived = sendCommand.readSerial();
+					if(infoReceived.length == 2){
+						panel.add(doTemperatureLabel(infoReceived[0]));
+						panel.add(doHumidityLabel(infoReceived[1]));
+						panel.repaint();
+					}
+				}catch (SerialPortException e1) {
+					System.out.println("Press the button again!");
+				}
+		    	//doTemperatureLabel(value);
+		    }
+		});
+		this.panel.add(doTemperatureImage());
+		this.panel.add(getEnvironmentData);	
+	}
+	
+	public void doEnvironmentData(){
+		
+		doEnvironmentLabels();
+		doEnvironmentButton();
+	}
+	
+	public void doPortList(){
+		//TODO: CONSOLE
+		 
+		this.portListTitle = new JLabel("Port:");
+		this.portListResult = new JLabel();
+		this.submitPort = new JButton("Connect");
+		String[] ports = sendCommand.listPorts();
+		this.portList = new JComboBox(ports);
+		portList.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+		    	choosenPort = (String)portList.getSelectedItem();
+		    }
+		});
+		
+		submitPort.addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent e){
+                if(!choosenPort.equals(null)){
+                	if(sendCommand.init(choosenPort)){
+                		portListResult.setText("You are connected on: "+choosenPort);
+                	}else{
+                		portListResult.setText("Connection fail");
+                	}
+                }
+            }
+        });
+		
+		portListTitle.setBounds(10, 10, 30, 20);
+		submitPort.setBounds(130, 10, 100, 20);
+		portList.setBounds(50, 10, 70, 20);
+		//portListResult.setBounds(x, y, width, height);
+		panel.add(portListTitle);
+		panel.add(portList);
+		panel.add(submitPort);
+	}
+	
+}

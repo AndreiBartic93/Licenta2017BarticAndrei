@@ -1,0 +1,35 @@
+#include <Arduino.h>
+#include <ServoTimer2.h>
+#include <VirtualWire.h>
+//#include "Array.h"
+//#include "UltrasonicSensor.h"
+//#include "SensorMaster.h"
+#include "Engine.h"
+#include "EngineMaster.h"
+//#include "AvoidObstacleStrategy.h"
+//#include "ThinkAction.h"
+//#include "EngineActions.h"
+#include "RadioSlave.h"
+//#include "Types.h"
+#include "ManualModeActions.h"
+//
+Engine engineA(2, 3, 9);
+Engine engineB(4, 5, 10);
+EngineMaster engineMaster(&engineA, &engineB);
+//SensorMaster sensorMaster;
+//EngineActions engineActions(&engineMaster);
+//ThinkAction thinkAction(sensorMaster, engineActions);
+RadioSlave radioSlave(13, RADIO_SLAVE_PIN);
+ManualModeActions manualModeActions(&radioSlave, &engineMaster);
+
+void setup()
+{
+	Serial.begin(9600);
+	manualModeActions.setup2();
+}
+
+void loop()
+{
+	manualModeActions.test();
+
+}

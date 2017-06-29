@@ -1,0 +1,55 @@
+package gui;
+
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JPanel;
+import javax.swing.KeyStroke;
+
+import pc_ArduinoComm.SendCommand;
+
+public class BreakPanel {
+	
+	private JPanel breakPanel;
+	private JButton breakButton;
+	private SendCommand sendCommand;
+	
+	public BreakPanel(SendCommand sendCommand){
+		this.sendCommand = sendCommand;
+	}
+	
+	private void doPanel(){
+		this.breakPanel = new JPanel();
+		breakPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+		breakPanel.setBounds(200, 300, 200, 50);
+		breakPanel.setLayout(null);
+		breakPanel.setVisible(true);
+	}
+	
+	private void doBreak(){
+		ImageIcon image = new ImageIcon("img/break.png");
+		this.breakButton = new JButton("",image);
+		breakButton.setBounds(0,0,200,50);
+		
+		ActionListener pressAction = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	System.out.println("7");
+            }
+        };
+        breakButton.registerKeyboardAction(pressAction, KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
+        breakPanel.add(breakButton);
+	}
+	
+	public JPanel getBreakPanel(){
+		doPanel();
+		doBreak();
+		return breakPanel;
+	}
+	
+}

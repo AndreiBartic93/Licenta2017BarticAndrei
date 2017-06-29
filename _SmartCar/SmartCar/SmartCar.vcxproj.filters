@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\EngineControl">
+      <UniqueIdentifier>{eb585a47-96e6-41c1-bdc9-6fcddf20ad95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\EngineControl">
+      <UniqueIdentifier>{5ca2660e-1bf6-4ee4-90ef-438de2adde5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Led">
+      <UniqueIdentifier>{745c2b0c-9d2c-4cf5-84fa-e5cdebdd4025}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Led">
+      <UniqueIdentifier>{17ba9680-5eaf-417f-8e33-95d49e170056}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\RadioSlave">
+      <UniqueIdentifier>{6f631a0d-a146-48cf-8e9c-76e167ddf34c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\RadioSlave">
+      <UniqueIdentifier>{378c9542-6249-49ab-a205-e8719625cefa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Servo">
+      <UniqueIdentifier>{dad9dbd4-db23-4954-8139-6df2c8074779}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Servo">
+      <UniqueIdentifier>{26d2ae73-756f-4cb6-a2a3-1069e74be5e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Sensors">
+      <UniqueIdentifier>{38f004e0-1d80-4a2b-9967-a9cbd2130ee1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Sensors">
+      <UniqueIdentifier>{79ac3600-ff8b-433a-9a03-2fe944fea101}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\structures">
+      <UniqueIdentifier>{23ecde6f-52b6-4a90-94ac-0347a1698356}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Structure">
+      <UniqueIdentifier>{81b8d732-7d19-4663-b469-2b98612b0961}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\AutoMode">
+      <UniqueIdentifier>{840d35d9-dfc3-4a12-b907-6a301e5e683f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\AutoMode">
+      <UniqueIdentifier>{ab6ea59b-f23b-46ce-b009-1b5ee5aa77dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ManualMode">
+      <UniqueIdentifier>{9393479d-78aa-46c1-ab02-edeb8694a010}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ManualMode">
+      <UniqueIdentifier>{510f512f-9fc0-4975-ac95-5d530a99f56b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\StrategyPattern">
+      <UniqueIdentifier>{d76d49cd-95c2-4966-a78e-e3c277ddf117}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SmartCar.ino" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Engine.cpp">
+      <Filter>Source Files\EngineControl</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineMaster.cpp">
+      <Filter>Source Files\EngineControl</Filter>
+    </ClCompile>
+    <ClCompile Include="Led.cpp">
+      <Filter>Source Files\Led</Filter>
+    </ClCompile>
+    <ClCompile Include="RadioSlave.cpp">
+      <Filter>Source Files\RadioSlave</Filter>
+    </ClCompile>
+    <ClCompile Include="Types.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ServoEngine.cpp">
+      <Filter>Source Files\Servo</Filter>
+    </ClCompile>
+    <ClCompile Include="SensorMaster.cpp">
+      <Filter>Source Files\Sensors</Filter>
+    </ClCompile>
+    <ClCompile Include="UltrasonicSensor.cpp">
+      <Filter>Source Files\Sensors</Filter>
+    </ClCompile>
+    <ClCompile Include="Array.cpp">
+      <Filter>Source Files\Structure</Filter>
+    </ClCompile>
+    <ClCompile Include="ThinkAction.cpp">
+      <Filter>Source Files\AutoMode</Filter>
+    </ClCompile>
+    <ClCompile Include="AvoidObstacleStrategy.cpp">
+      <Filter>Source Files\AutoMode</Filter>
+    </ClCompile>
+    <ClCompile Include="EngineActions.cpp">
+      <Filter>Source Files\EngineControl</Filter>
+    </ClCompile>
+    <ClCompile Include="ManualModeActions.cpp">
+      <Filter>Source Files\ManualMode</Filter>
+    </ClCompile>
+    <ClCompile Include="ManualMode.cpp">
+      <Filter>Source Files\ManualMode</Filter>
+    </ClCompile>
+    <ClCompile Include="Context.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AutoMode.cpp">
+      <Filter>Source Files\AutoMode</Filter>
+    </ClCompile>
+    <ClCompile Include="DriveCar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SdCard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="__vm\.SmartCar.vsarduino.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine.h">
+      <Filter>Header Files\EngineControl</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineMaster.h">
+      <Filter>Header Files\EngineControl</Filter>
+    </ClInclude>
+    <ClInclude Include="Led.h">
+      <Filter>Header Files\Led</Filter>
+    </ClInclude>
+    <ClInclude Include="RadioSlave.h">
+      <Filter>Header Files\RadioSlave</Filter>
+    </ClInclude>
+    <ClInclude Include="Types.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ServoEngine.h">
+      <Filter>Header Files\Servo</Filter>
+    </ClInclude>
+    <ClInclude Include="SensorMaster.h">
+      <Filter>Header Files\Sensors</Filter>
+    </ClInclude>
+    <ClInclude Include="UltrasonicSensor.h">
+      <Filter>Header Files\Sensors</Filter>
+    </ClInclude>
+    <ClInclude Include="Array.h">
+      <Filter>Header Files\structures</Filter>
+    </ClInclude>
+    <ClInclude Include="ThinkAction.h">
+      <Filter>Header Files\AutoMode</Filter>
+    </ClInclude>
+    <ClInclude Include="AvoidObstacleStrategy.h">
+      <Filter>Header Files\AutoMode</Filter>
+    </ClInclude>
+    <ClInclude Include="EngineActions.h">
+      <Filter>Header Files\EngineControl</Filter>
+    </ClInclude>
+    <ClInclude Include="ManualModeActions.h">
+      <Filter>Header Files\ManualMode</Filter>
+    </ClInclude>
+    <ClInclude Include="ManualMode.h">
+      <Filter>Header Files\ManualMode</Filter>
+    </ClInclude>
+    <ClInclude Include="iStrategy.h">
+      <Filter>Header Files\StrategyPattern</Filter>
+    </ClInclude>
+    <ClInclude Include="Context.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AutoMode.h">
+      <Filter>Header Files\AutoMode</Filter>
+    </ClInclude>
+    <ClInclude Include="DriveCar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SdCard.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

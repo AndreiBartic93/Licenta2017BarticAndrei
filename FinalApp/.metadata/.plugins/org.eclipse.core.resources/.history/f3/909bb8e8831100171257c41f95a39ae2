@@ -1,0 +1,43 @@
+package gui;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import gui.ControlPanel;
+import pc_ArduinoComm.SendCommand;
+
+public class GUI {
+	JFrame frame = new JFrame("CardLayout demo");
+	SendCommand sendCommand = new SendCommand();
+	//ControlPanel controlPanel = new ControlPanel(sendCommand);
+	SettingsPanel settingsPanel = new SettingsPanel(sendCommand);
+	//SpeedPanel speedPanel = new SpeedPanel(sendCommand);
+	//StatePanel statePanel = new StatePanel(sendCommand);
+	MainPanelGenerator mainPanel = new MainPanelGenerator(sendCommand);
+	
+	public GUI() {
+		frame.pack();
+		frame.setSize(640, 480);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.add(mainPanel.createMainPanel());
+//		frame.add(controlPanel.getArrowsPanel());
+		//frame.add(settingsPanel.getSettingsPanel());
+//		frame.add(speedPanel.getSpeedPanel());
+//		frame.add(statePanel.getStatePanel());
+		frame.setVisible(true);
+		
+		
+		
+	}
+
+	public static void main(String[] args) {
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				new GUI();
+			}
+		});
+	}
+
+}

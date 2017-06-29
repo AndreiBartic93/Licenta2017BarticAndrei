@@ -1,0 +1,84 @@
+package gui;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JPanel;
+import javax.swing.KeyStroke;
+
+import jssc.SerialPortException;
+import pc_ArduinoComm.SendCommand;
+
+public class StatePanel {
+	private JPanel statePanel;
+	private JButton manualButton = new JButton("",new ImageIcon("img/manual.png"));
+	private JButton autoButton = new JButton("",new ImageIcon("img/auto.png"));
+	private int currentState;
+	private SendCommand sendCommand;
+	
+	public StatePanel(SendCommand sendCommand){
+		
+		this.sendCommand = sendCommand;
+	}
+	
+	private void doPanel(){
+		this.statePanel = new JPanel();
+		statePanel.setLayout(null);
+		statePanel.setVisible(true);
+		//this.statePanel.setBorder(BorderFactory.createLineBorder(Color.GREEN));
+	}
+	
+	private void doManualButton(){
+		manualButton.setBounds(350,320,44,55);
+		ActionListener pressAction = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	  try {
+            		  String command = "M";
+            		  if(command.equals("M")){
+            			  //setBorderForGear(1);
+            		  }
+            		  sendCommand.writeCommand(command);
+            		  
+				} catch (SerialPortException e1) {
+					System.out.println("[SendCommand] Manual button error");
+					e1.printStackTrace();
+				}
+            }
+        };
+        manualButton.registerKeyboardAction(pressAction, KeyStroke.getKeyStroke(KeyEvent.VK_M, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
+        statePanel.add(manualButton);
+	}
+	
+	private void doAutoButton(){
+		
+		autoButton.setBounds(100,380,44,55);
+		ActionListener pressAction = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	  try {
+            		  String command = "A";
+            		  if(command.equals("A")){
+            			  //setBorderForGear(1);
+            		  }
+            		  sendCommand.writeCommand(command);
+            		  
+				} catch (SerialPortException e1) {
+					System.out.println("[SendCommand] Auto Button error");
+					e1.printStackTrace();
+				}
+            }
+        };
+        autoButton.registerKeyboardAction(pressAction, KeyStroke.getKeyStroke(KeyEvent.VK_A, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
+        statePanel.add(autoButton);
+	}
+	public JPanel getStatePanel(){
+		doPanel();
+		doManualButton();
+		doAutoButton();
+		return statePanel;
+	}
+}

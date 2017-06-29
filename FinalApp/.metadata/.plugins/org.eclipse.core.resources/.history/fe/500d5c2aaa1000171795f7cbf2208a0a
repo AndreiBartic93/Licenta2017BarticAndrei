@@ -1,0 +1,84 @@
+package gui;
+
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JPanel;
+import javax.swing.KeyStroke;
+
+import jssc.SerialPortException;
+import pc_ArduinoComm.SendCommand;
+
+public class SpeedPanel {
+
+	private JPanel speedPanel;
+	private JButton gearOneButton;
+	private JButton gearDownButton;
+	private SendCommand sendCommand;
+	
+	public SpeedPanel(SendCommand sendCommand){
+		this.sendCommand = sendCommand;
+	}
+	
+	private void doPanel(){
+		this.speedPanel = new JPanel();
+	//	speedPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+		speedPanel.setBounds(10, 260, 150, 100);
+		speedPanel.setLayout(null);
+		speedPanel.setVisible(true);
+	}
+	
+	private void doGearOne(){
+		ImageIcon image = new ImageIcon("img/gear1.png");
+		this.gearOneButton = new JButton("",image);
+		gearOneButton.setBounds(0,300,54,75);
+		
+		ActionListener pressAction = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	  try {
+            		  String command = "5";
+            		  sendCommand.writeCommand(command);
+            		  
+				} catch (SerialPortException e1) {
+					System.out.println("[SendCommand] Gear up error");
+					e1.printStackTrace();
+				}
+            }
+        };
+        gearOneButton.registerKeyboardAction(pressAction, KeyStroke.getKeyStroke(KeyEvent.VK_1, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
+        speedPanel.add(gearOneButton);
+	}
+	
+	private void doGearTwo(){
+		ImageIcon image = new ImageIcon("img/gear1.png");
+		this.gearTwoButton = new JButton("",image);
+		gearOneButton.setBounds(0,300,54,75);
+		
+		ActionListener pressAction = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	  try {
+            		  String command = "5";
+            		  sendCommand.writeCommand(command);
+            		  
+				} catch (SerialPortException e1) {
+					System.out.println("[SendCommand] Gear up error");
+					e1.printStackTrace();
+				}
+            }
+        };
+        gearOneButton.registerKeyboardAction(pressAction, KeyStroke.getKeyStroke(KeyEvent.VK_1, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
+        speedPanel.add(gearOneButton);
+	}
+	
+	public JPanel getSpeedPanel(){
+		doPanel();
+		doGearOne();
+		return speedPanel;
+	}
+}

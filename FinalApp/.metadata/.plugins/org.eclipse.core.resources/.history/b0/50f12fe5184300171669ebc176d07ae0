@@ -1,0 +1,98 @@
+package gui;
+
+import java.awt.Graphics;
+
+import javax.swing.JFrame;
+
+import javax.swing.*;
+
+import jssc.SerialPortException;
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.geom.Line2D;
+import java.util.ArrayList;
+
+import pc_ArduinoComm.SendCommand;
+import useful.ReadCSVFile;
+
+public class GUI extends JFrame{
+//	JFrame frame = new JFrame("Smart Car");
+	SendCommand sendCommand = new SendCommand();
+	MainPanelGenerator mainPanel = new MainPanelGenerator(sendCommand);
+	
+	public GUI() {
+		pack();
+		setSize(640, 480);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		add(mainPanel.createMainPanel());
+		setVisible(true);
+	}
+	
+	public void test(){
+		ReadCSVFile read = new ReadCSVFile();
+		ArrayList<String> myData= read.getFieldData();
+		for(int i=0;i<myData.size();i++){
+			System.out.println(myData.get(i));
+		}
+	}
+	
+	public void paint(Graphics g){
+		super.paint(g);  
+        Graphics2D g2 = (Graphics2D) g;
+        Line2D lin = new Line2D.Float(200,0, 200, 200);
+        Line2D lin2 = new Line2D.Float(100, 100, 250, 260);
+        g2.draw(lin);
+	}
+		
+	public static void main(String[] args) {
+		GUI gui = new GUI();
+		gui.test();
+	}
+}
+
+//import javax.swing.*;
+//import java.awt.*;
+//import java.awt.geom.*;
+//
+//class GUI extends JFrame{
+//
+//    public GUI(){
+//        JPanel panel=new JPanel();
+//        getContentPane().add(panel);
+//        setSize(450,450);
+//
+//        JButton button =new JButton("press");
+//        panel.add(button);
+//    }
+//
+//    public void paint(Graphics g) {
+//        super.paint(g);  // fixes the immediate problem.
+//        Graphics2D g2 = (Graphics2D) g;
+//        Line2D lin = new Line2D.Float(100, 100, 250, 260);
+//        g2.draw(lin);
+//    }
+//
+//    public static void main(String []args){
+//    	GUI s=new GUI();
+//        s.setVisible(true);
+//    }
+//}
+
+//public class GUI extends JFrame{
+//	public GUI(){
+//		setTitle("Tut");
+//		setSize(960,960);
+//		setVisible(true);
+//		setDefaultCloseOperation(EXIT_ON_CLOSE);
+//	}
+//	
+//	public void paint(Graphics g){
+//		g.drawLine(100, 100, 100, 200);
+//	}
+//	
+//	public static void main(String[] args){
+//		GUI gui = new GUI();
+//	}
+//}

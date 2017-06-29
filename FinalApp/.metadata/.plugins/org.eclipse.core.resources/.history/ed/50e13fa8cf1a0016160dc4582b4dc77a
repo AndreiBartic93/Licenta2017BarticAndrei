@@ -1,0 +1,79 @@
+package gui;
+
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import pc_ArduinoComm.SendCommand;
+
+public class SettingsPanel {
+	
+	private JPanel settingsPanel;
+	private JComboBox portList;
+	private JLabel portListTitle;
+	private JLabel portListResult;
+	private JButton submitPort;
+	private String choosenPort=null;
+	private SendCommand sendCommand;
+	
+	public SettingsPanel(SendCommand sendCommand){
+		this.sendCommand = sendCommand;
+	}
+	
+	private void doPanel(){
+		this.settingsPanel = new JPanel();
+		settingsPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+		settingsPanel.setBounds(10, 10, 160, 100);
+		settingsPanel.setLayout(null);
+		settingsPanel.setVisible(true);
+	}
+	
+	private void doPortList(){
+		//TODO: CONSOLE
+		 
+		this.portListTitle = new JLabel("Port:");
+		this.portListResult = new JLabel();
+		this.submitPort = new JButton("Connect");
+		String[] ports = sendCommand.listPorts();
+		this.portList = new JComboBox(ports);
+		portList.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+		    	choosenPort = (String)portList.getSelectedItem();
+		    }
+		});
+		
+		submitPort.addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent e){
+                if(!choosenPort.equals(null)){
+                	if(sendCommand.init(choosenPort)){
+                		System.out.println("dfd");
+                		portListResult.setText("You are connected on: "+choosenPort);
+                	}else{
+                		portListResult.setText("Connection fail");
+                	}
+                }
+            }
+        });
+		
+		portListTitle.setBounds(10, 10, 30, 20);
+		submitPort.setBounds(130, 10, 100, 20);
+		portList.setBounds(50, 10, 70, 20);
+		//portListResult.setBounds(x, y, width, height);
+		settingsPanel.add(portListTitle);
+		settingsPanel.add(portList);
+		settingsPanel.add(submitPort);
+	}
+	
+	public JPanel getSettingsPanel(){
+		doPanel();
+		doPortList();
+		return settingsPanel;
+	}
+	
+}

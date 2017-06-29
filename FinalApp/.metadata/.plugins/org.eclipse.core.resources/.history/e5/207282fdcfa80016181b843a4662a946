@@ -1,0 +1,108 @@
+package gui;
+//import javax.swing.*;
+//
+//import pc_ArduinoComm.SendCommand;
+//
+//public class GUI {
+//	
+//	private JFrame window;
+//	private SendCommand sendCommand;
+//	private ControlPanel controlPanel;
+//	private SettingsPanel settingsPanel;
+//	private SpeedPanel speedPanel;
+//	private BreakPanel breakPanel;
+//	
+//	private void createFrame(String name){
+//		this.sendCommand = new SendCommand();
+//		this.controlPanel = new ControlPanel(sendCommand);
+//		this.settingsPanel = new SettingsPanel(sendCommand);
+//		this.speedPanel = new SpeedPanel(sendCommand);
+//		this.breakPanel = new BreakPanel(sendCommand);
+//		this.window = new JFrame(name);
+//		
+//		window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//		window.setSize(640, 400);
+//		window.setResizable(false);
+//		window.setLayout(null);//absolute positioning.. we specify properties of every component 
+//	}
+//	
+//	private void addPanels(){
+//		window.add(controlPanel.getArrowsPanel());
+//		window.add(settingsPanel.getSettingsPanel());
+//		window.add(speedPanel.getSpeedPanel());
+//		window.add(breakPanel.getBreakPanel());
+//		window.setVisible(true);
+//	}
+//	
+//	public static void main(String[] args){
+//		GUI gui = new GUI();
+//		gui.createFrame("CarControl");
+//		gui.addPanels();
+//	}
+//}
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.HashMap;
+import javax.swing.JButton;
+import javax.swing.JTextField;
+import javax.swing.JFrame;
+ 
+public class GUI{
+     
+    public static void main(String[] args) {
+        EventQueue.invokeLater(new Runnable() {
+            public void run()
+            {   
+			  //ChildWindow creation
+			  DetailView  detail= new DetailView();                
+			  //ParentWindow creation by passing the child object
+              MainView main = new MainView(detail);
+              main.setVisible(true);
+              detail.setVisible(true);
+            }
+        });
+    }
+}   
+       class MainView extends JFrame implements ActionListener{
+       JTextField textField;
+       DetailView detailObj;
+       public MainView(DetailView detailObj)
+       {
+            this.detailObj = detailObj;
+            setTitle("Main");
+            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            getContentPane().setLayout(new BorderLayout());
+            JButton button = new JButton("Transfer Content");
+            textField = new JTextField();
+            button.addActionListener(this);
+    getContentPane().add(textField, BorderLayout.CENTER);
+    getContentPane().add(button, BorderLayout.SOUTH);
+             pack();
+             setSize(200,200);
+      }//mainView constructor       
+     //Whenever the button is pressed the textvalue will be tranfered from this parent window
+     //and set as a text to child indows textfield.
+              public void actionPerformed(ActionEvent e)
+     {
+                  detailObj.textField.setText(textField.getText());
+              }
+             
+   }//Main View class    
+     
+     
+     class DetailView extends JFrame {
+     JTextField textField;
+         
+      public DetailView(){
+          setTitle("Detail");
+          setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+          getContentPane().setLayout(new BorderLayout());
+          textField = new JTextField();
+          getContentPane().add(textField, BorderLayout.SOUTH);
+          pack();
+          setSize(200,200);
+      
+        }//cons
+    } //DetailView class

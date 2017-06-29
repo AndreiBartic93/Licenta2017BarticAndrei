@@ -1,0 +1,39 @@
+package gui;
+import javax.swing.*;
+
+import pc_ArduinoComm.SendCommand;
+
+public class GUI {
+	
+	private JFrame window;
+	private SendCommand sendCommand;
+	private ControlPanel controlPanel;
+	private SettingsPanel settingsPanel;
+	private SpeedPanel speedPanel;
+	
+	private void createFrame(String name){
+		this.sendCommand = new SendCommand();
+		this.controlPanel = new ControlPanel(sendCommand);
+		this.settingsPanel = new SettingsPanel(sendCommand);
+		this.speedPanel = new SpeedPanel(sendCommand);
+		this.window = new JFrame(name);
+		
+		window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		window.setSize(640, 400);
+		window.setResizable(false);
+		window.setLayout(null);//absolute positioning.. we specify properties of every component 
+	}
+	
+	private void addPanels(){
+		window.add(controlPanel.getArrowsPanel());
+		window.add(settingsPanel.getSettingsPanel());
+		window.add(speedPanel.getSpeedPanel());
+		window.setVisible(true);
+	}
+	
+	public static void main(String[] args){
+		GUI gui = new GUI();
+		gui.createFrame("CarControl");
+		gui.addPanels();
+	}
+}

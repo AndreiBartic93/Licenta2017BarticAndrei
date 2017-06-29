@@ -1,0 +1,230 @@
+package gui;
+
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JPanel;
+import javax.swing.KeyStroke;
+
+import jssc.SerialPortException;
+import pc_ArduinoComm.SendCommand;
+
+public class SpeedPanel {
+
+	private JPanel speedPanel;
+	private JButton gearOneButton = new JButton("",new ImageIcon("img/gear1.png"));
+	private JButton gearTwoButton = new JButton("",new ImageIcon("img/gear2.png"));
+	private JButton gearThreeButton = new JButton("",new ImageIcon("img/gear3.png"));
+	private JButton gearFourButton = new JButton("",new ImageIcon("img/gear4.png"));
+	private JButton gearFiveButton = new JButton("",new ImageIcon("img/gear5.png"));
+	private JButton gearSixButton = new JButton("",new ImageIcon("img/gear6.png"));
+	private JButton breakButton;
+	private int currentGear;
+	private SendCommand sendCommand;
+	
+	public SpeedPanel(SendCommand sendCommand){
+		this.sendCommand = sendCommand;
+	}
+	
+	private void doPanel(){
+		this.speedPanel = new JPanel();
+	//	speedPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+		//speedPanel.setBounds(10, 160, 150, 100);
+		speedPanel.setLayout(null);
+		speedPanel.setVisible(true);
+		//speedPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+	}
+	
+	void setBorderForGear(int gear){
+		this.gearOneButton.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, Color.BLACK));
+		this.gearTwoButton.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, Color.BLACK));
+		this.gearThreeButton.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, Color.BLACK));
+		this.gearFourButton.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, Color.BLACK));
+		this.gearFiveButton.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, Color.BLACK));
+		this.gearSixButton.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, Color.BLACK));
+		if(gear == 1){
+			this.gearOneButton.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.RED));
+		}else if(gear == 2){
+			this.gearTwoButton.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.RED));
+		}else if(gear == 3){
+			this.gearThreeButton.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.RED));
+		}else if(gear == 4){
+			this.gearFourButton.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.RED));
+		}else if(gear == 5){
+			this.gearFiveButton.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.RED));
+		}else if(gear == 6){
+			this.gearSixButton.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.RED));
+		}
+	}
+	
+	private void doGearOne(){
+		
+		gearOneButton.setBounds(10,320,44,55);
+		ActionListener pressAction = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	  try {
+            		  String command = "1";
+            		  if(command.equals("1")){
+            			  setBorderForGear(1);
+            		  }
+            		  sendCommand.writeCommand(command);
+            		  
+				} catch (SerialPortException e1) {
+					System.out.println("[SendCommand] Gear one error");
+					e1.printStackTrace();
+				}
+            }
+        };
+        gearOneButton.registerKeyboardAction(pressAction, KeyStroke.getKeyStroke(KeyEvent.VK_1, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
+        speedPanel.add(gearOneButton);
+	}
+	
+	private void doGearTwo(){
+		gearTwoButton.setBounds(10,380,44,55);
+		ActionListener pressAction = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	  try {
+            		  String command = "2";
+            		  if(command.equals("2")){
+            			  setBorderForGear(2);
+            		  }
+            		  sendCommand.writeCommand(command);
+            		  
+				} catch (SerialPortException e1) {
+					System.out.println("[SendCommand] Gear two error");
+					e1.printStackTrace();
+				}
+            }
+        };
+        gearTwoButton.registerKeyboardAction(pressAction, KeyStroke.getKeyStroke(KeyEvent.VK_2, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
+        speedPanel.add(gearTwoButton);
+	}
+	
+	private void doGearThree(){
+		gearThreeButton.setBounds(60,320,44,55);	
+		ActionListener pressAction = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	  try {
+            		  String command = "3";
+            		  if(command.equals("3")){
+            			  setBorderForGear(3);
+            		  }
+            		  sendCommand.writeCommand(command);
+            		  
+				} catch (SerialPortException e1) {
+					System.out.println("[SendCommand] Gear three error");
+					e1.printStackTrace();
+				}
+            }
+        };
+        gearThreeButton.registerKeyboardAction(pressAction, KeyStroke.getKeyStroke(KeyEvent.VK_3, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
+        speedPanel.add(gearThreeButton);
+	}
+	
+	private void doGearFour(){
+		gearFourButton.setBounds(60,380,44,55);
+		ActionListener pressAction = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	  try {
+            		  String command = "4";
+            		  if(command.equals("4")){
+            			  setBorderForGear(4);
+            		  }
+            		  sendCommand.writeCommand(command);
+            		  
+				} catch (SerialPortException e1) {
+					System.out.println("[SendCommand] Gear four error");
+					e1.printStackTrace();
+				}
+            }
+        };
+        gearFourButton.registerKeyboardAction(pressAction, KeyStroke.getKeyStroke(KeyEvent.VK_4, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
+        speedPanel.add(gearFourButton);
+	}
+	
+	private void doGearFive(){
+		gearFiveButton.setBounds(110,320,44,55);
+		ActionListener pressAction = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	  try {
+            		  String command = "5";
+            		  if(command.equals("5")){
+            			  setBorderForGear(5);
+            		  }
+            		  sendCommand.writeCommand(command);
+            		  
+				} catch (SerialPortException e1) {
+					System.out.println("[SendCommand] Gear up error");
+					e1.printStackTrace();
+				}
+            }
+        };
+        gearFiveButton.registerKeyboardAction(pressAction, KeyStroke.getKeyStroke(KeyEvent.VK_5, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
+        speedPanel.add(gearFiveButton);
+	}
+	
+	private void doGearSix(){
+		ImageIcon image = new ImageIcon("img/gear6.png");
+		this.gearSixButton = new JButton("",image);
+		gearSixButton.setBounds(110,380,44,55);
+		
+		ActionListener pressAction = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	  try {
+            		  String command = "6";
+            		  if(command.equals("6")){
+            			  setBorderForGear(6);
+            		  }
+            		  sendCommand.writeCommand(command);
+            		  
+				} catch (SerialPortException e1) {
+					System.out.println("[SendCommand] Gear up error");
+					e1.printStackTrace();
+				}
+            }
+        };
+        gearSixButton.registerKeyboardAction(pressAction, KeyStroke.getKeyStroke(KeyEvent.VK_6, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
+        speedPanel.add(gearSixButton);
+	}
+	
+	private void doBreakButton(){
+		ImageIcon image = new ImageIcon("img/break.png");
+		this.breakButton = new JButton("",image);
+		breakButton.setBounds(250,385, 300,50);
+		
+		ActionListener pressAction = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	  try {
+            		  String command = "7";
+            		  sendCommand.writeCommand(command);
+            		  
+				} catch (SerialPortException e1) {
+					System.out.println("[SendCommand] Gear up error");
+					e1.printStackTrace();
+				}
+            }
+        };
+        breakButton.registerKeyboardAction(pressAction, KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
+        speedPanel.add(breakButton);
+	}
+	
+	
+	public JPanel getSpeedPanel(){
+		doPanel();
+		doGearOne();
+		doGearTwo();
+		doGearThree();
+		doGearFour();
+		doGearFive();
+		doGearSix();
+		doBreakButton();
+		return speedPanel;
+	}
+}
+

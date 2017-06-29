@@ -1,0 +1,298 @@
+package gui;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.KeyStroke;
+
+import jssc.SerialPortException;
+import pc_ArduinoComm.SendCommand;
+
+public class ButtonGenerator {
+	private JButton gearOneButton = new JButton("",new ImageIcon("img/gear1.png"));
+	private JButton gearTwoButton = new JButton("",new ImageIcon("img/gear2.png"));
+	private JButton gearThreeButton = new JButton("",new ImageIcon("img/gear3.png"));
+	private JButton gearFourButton = new JButton("",new ImageIcon("img/gear4.png"));
+	private JButton gearFiveButton = new JButton("",new ImageIcon("img/gear5.png"));
+	private JButton gearSixButton = new JButton("",new ImageIcon("img/gear6.png"));
+	
+	private JButton forwardButton = new JButton("",new ImageIcon("img/forward.png"));
+	private JButton backwardButton = new JButton("",new ImageIcon("img/backward.png"));
+	private JButton leftButton = new JButton("",new ImageIcon("img/left.png"));
+	private JButton rightButton = new JButton("",new ImageIcon("img/right.png"));
+	
+	private JButton manualButton = new JButton("",new ImageIcon("img/manual.png"));
+	private JButton autoButton = new JButton("",new ImageIcon("img/auto.png"));
+	private SendCommand sendCommand;
+	
+	public ButtonGenerator(SendCommand sendCommand){
+		this.sendCommand = sendCommand;
+	}
+	
+	void setBorderForGear(int gear){
+		this.gearOneButton.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, Color.BLACK));
+		this.gearTwoButton.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, Color.BLACK));
+		this.gearThreeButton.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, Color.BLACK));
+		this.gearFourButton.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, Color.BLACK));
+		this.gearFiveButton.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, Color.BLACK));
+		this.gearSixButton.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, Color.BLACK));
+
+		if(gear == 1){
+			this.gearOneButton.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.RED));
+		}else if(gear == 2){
+			this.gearTwoButton.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.RED));
+		}else if(gear == 3){
+			this.gearThreeButton.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.RED));
+		}else if(gear == 4){
+			this.gearFourButton.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.RED));
+		}else if(gear == 5){
+			this.gearFiveButton.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.RED));
+		}else if(gear == 6){
+			this.gearSixButton.setBorder(BorderFactory.createMatteBorder(4, 4, 4, 4, Color.RED));
+		}
+	}
+	
+	public JButton doGearOne(){
+		
+		gearOneButton.setBounds(10,320,44,55);
+		ActionListener pressAction = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	  try {
+            		  String command = "1";
+            		  if(command.equals("1")){
+            			  setBorderForGear(1);
+            		  }
+            		  sendCommand.writeCommand(command);
+            		  
+				} catch (SerialPortException e1) {
+					System.out.println("[SendCommand] Gear one error");
+					e1.printStackTrace();
+				}
+            }
+        };
+        gearOneButton.registerKeyboardAction(pressAction, KeyStroke.getKeyStroke(KeyEvent.VK_1, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
+        return gearOneButton;
+	}
+	
+	public JButton doGearTwo(){
+		gearTwoButton.setBounds(10,380,44,55);
+		ActionListener pressAction = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	  try {
+            		  String command = "2";
+            		  if(command.equals("2")){
+            			  setBorderForGear(2);
+            		  }
+            		  sendCommand.writeCommand(command);
+            		  
+				} catch (SerialPortException e1) {
+					System.out.println("[SendCommand] Gear two error");
+					e1.printStackTrace();
+				}
+            }
+        };
+        gearTwoButton.registerKeyboardAction(pressAction, KeyStroke.getKeyStroke(KeyEvent.VK_2, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
+        return gearTwoButton;
+	}
+	
+	public JButton doGearThree(){
+		gearThreeButton.setBounds(60,320,44,55);	
+		ActionListener pressAction = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	  try {
+            		  String command = "3";
+            		  if(command.equals("3")){
+            			  setBorderForGear(3);
+            		  }
+            		  sendCommand.writeCommand(command);
+            		  
+				} catch (SerialPortException e1) {
+					System.out.println("[SendCommand] Gear three error");
+					e1.printStackTrace();
+				}
+            }
+        };
+        gearThreeButton.registerKeyboardAction(pressAction, KeyStroke.getKeyStroke(KeyEvent.VK_3, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
+        return gearThreeButton;
+	}
+	
+	public JButton doGearFour(){
+		gearFourButton.setBounds(60,380,44,55);
+		ActionListener pressAction = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	  try {
+            		  String command = "4";
+            		  if(command.equals("4")){
+            			  setBorderForGear(4);
+            		  }
+            		  sendCommand.writeCommand(command);
+            		  
+				} catch (SerialPortException e1) {
+					System.out.println("[SendCommand] Gear four error");
+					e1.printStackTrace();
+				}
+            }
+        };
+        gearFourButton.registerKeyboardAction(pressAction, KeyStroke.getKeyStroke(KeyEvent.VK_4, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
+        return gearFourButton;
+	}
+	
+	public JButton doGearFive(){
+		gearFiveButton.setBounds(110,320,44,55);
+		ActionListener pressAction = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	  try {
+            		  String command = "5";
+            		  if(command.equals("5")){
+            			  setBorderForGear(5);
+            		  }
+            		  sendCommand.writeCommand(command);
+            		  
+				} catch (SerialPortException e1) {
+					System.out.println("[SendCommand] Gear five error");
+					e1.printStackTrace();
+				}
+            }
+        };
+        gearFiveButton.registerKeyboardAction(pressAction, KeyStroke.getKeyStroke(KeyEvent.VK_5, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
+        return gearFiveButton;
+	}
+	
+	public JButton doGearSix(){
+		gearSixButton.setBounds(110,380,44,55);
+		ActionListener pressAction = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	  try {
+            		  String command = "6";
+            		  if(command.equals("6")){
+            			  setBorderForGear(6);
+            		  }
+            		  sendCommand.writeCommand(command);
+            		  
+				} catch (SerialPortException e1) {
+					System.out.println("[SendCommand] Gear Six error");
+					e1.printStackTrace();
+				}
+            }
+        };
+        gearSixButton.registerKeyboardAction(pressAction, KeyStroke.getKeyStroke(KeyEvent.VK_6, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
+        return gearSixButton;
+	}
+	
+	public JButton doForwardButton(){
+		forwardButton.setBounds(560,385, 50, 50);
+		
+        ActionListener pressAction = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                  try {
+                	  String command = "F";
+                	  sendCommand.writeCommand(command);
+				} catch (SerialPortException e1) {
+					System.out.println("[SendCommand] Forward command ERROR");
+					e1.printStackTrace();
+				}
+            }
+        };
+        forwardButton.registerKeyboardAction(pressAction, KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
+        return forwardButton;
+	}
+	
+	public JButton doBackwardButton(){
+		backwardButton.setBounds(510,385,50,50);
+		
+		ActionListener pressAction = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	  try {
+            		  String command = "B";
+            		  sendCommand.writeCommand(command);
+				} catch (SerialPortException e1) {
+					System.out.println("[SendCommand] Backward command ERROR");
+					e1.printStackTrace();
+				}
+            }
+        };
+		backwardButton.registerKeyboardAction(pressAction, KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
+		return backwardButton;
+	}
+	
+	public JButton doLeftButton(){
+		leftButton.setBounds(455,385,50,50);
+		
+		ActionListener pressAction = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	  try {
+            		  String command = "L";
+            		  sendCommand.writeCommand(command);
+            		  
+				} catch (SerialPortException e1) {
+					System.out.println("[SendCommand] Left command ERROR");
+					e1.printStackTrace();
+				}
+            }
+        };
+        leftButton.registerKeyboardAction(pressAction, KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
+		return leftButton;
+	}
+	
+	public JButton doRightButton(){
+		rightButton.setBounds(565,385,50,50);
+		
+		ActionListener pressAction = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	  try {
+            		  String command = "R";
+            		  sendCommand.writeCommand(command);
+				} catch (SerialPortException e1) {
+					System.out.println("[SendCommand] Right command ERROR");
+					e1.printStackTrace();
+				}
+            }
+        };
+        rightButton.registerKeyboardAction(pressAction, KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
+		return rightButton;
+	}
+	
+	public JButton doManualButton(){
+		manualButton.setBounds(125,50,50,50);
+		
+		ActionListener pressAction = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	  try {
+            		  String command = "M";
+            		  sendCommand.writeCommand(command);
+				} catch (SerialPortException e1) {
+					System.out.println("[SendCommand] Manual state command ERROR");
+					e1.printStackTrace();
+				}
+            }
+        };
+        manualButton.registerKeyboardAction(pressAction, KeyStroke.getKeyStroke(KeyEvent.VK_M, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
+		return manualButton;
+	}
+	
+	public JButton doAutoButton(){
+		autoButton.setBounds(125,50,50,50);
+		
+		ActionListener pressAction = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	  try {
+            		  String command = "A";
+            		  sendCommand.writeCommand(command);
+				} catch (SerialPortException e1) {
+					System.out.println("[SendCommand] Auto state command ERROR");
+					e1.printStackTrace();
+				}
+            }
+        };
+        autoButton.registerKeyboardAction(pressAction, KeyStroke.getKeyStroke(KeyEvent.VK_A, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
+		return autoButton;
+	}
+}

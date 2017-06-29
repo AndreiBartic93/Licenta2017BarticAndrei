@@ -1,0 +1,7 @@
+package gui;
+
+public class MainPanelGenerator {
+	private JPanel mainPanel;
+	
+	
+}

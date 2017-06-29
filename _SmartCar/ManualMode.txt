@@ -1,0 +1,61 @@
+#include <Arduino.h>
+#include "VirtualWire.h"
+#include "Engine.h"
+#include "EngineMaster.h"
+#include "Led.h"
+#include "RadioSlave.h"
+//#include "ServoEngine.h"
+
+//radio
+Engine engineA(2, 4, 3);
+Engine engineB(7, 8, 5);
+EngineMaster engineMaster(&engineA, &engineB);
+RadioSlave radioSlave(6, A0);
+byte commandReceived;
+//end-radio
+
+
+void setup()
+{
+	Serial.begin(9600);
+	radioSlave.setup();
+	pinMode(A0, INPUT);
+}
+
+void loop()
+{
+	commandReceived = radioSlave.receiveCommand();
+	Serial.println((char)commandReceived);
+	if (commandReceived == '1')
+	{
+		engineMaster.setGear(3);
+		Serial.println((char) commandReceived);
+		engineMaster.goForward();
+		delay(200);
+	}
+	else if (commandReceived == '2')
+	{
+		engineMaster.setGear(3);
+		//Serial.println((char) commandReceived);
+		engineMaster.goBackward();
+		delay(200);
+	}
+	else if (commandReceived == '3')
+	{
+		engineMaster.setGear(3);
+		//Serial.println((char) commandReceived);
+		engineMaster.goLeft();
+		delay(200);
+	}
+	else if (commandReceived == '4')
+	{
+		engineMaster.setGear(3);
+		//Serial.println((char) commandReceived);
+		engineMaster.goRight();
+		delay(200);
+	}
+	else{
+		//Serial.println((char) commandReceived);
+		engineMaster.releaseEngine();
+	}
+}

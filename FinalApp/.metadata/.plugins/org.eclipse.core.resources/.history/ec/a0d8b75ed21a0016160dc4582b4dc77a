@@ -1,0 +1,104 @@
+package gui;
+import java.awt.Color;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+
+import javax.swing.*;
+
+import jssc.SerialPortException;
+import pc_ArduinoComm.SendCommand;
+
+
+public class ControlPanel {
+	private JPanel arrowsPanel;
+	private JButton forwardButton;
+	private JButton backwardButton;
+	private JButton leftButton;
+	private JButton rightButton;
+	private boolean availablePort = false;
+	private SendCommand sendCommand;
+	
+	public ControlPanel(SendCommand sendCommand){
+		this.sendCommand = sendCommand;
+	}
+	
+	private void doPanel(){
+		this.arrowsPanel = new JPanel();
+		arrowsPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+		arrowsPanel.setBounds(420, 260, 200, 100);
+		arrowsPanel.setLayout(null);
+		arrowsPanel.setVisible(true);
+	}
+	
+	private void doForwardButton(){
+		ImageIcon image = new ImageIcon("img/forward.png");
+		this.forwardButton = new JButton("",image);
+		forwardButton.setBounds(75,0, 50, 50);
+		
+        ActionListener pressAction = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                  try {
+                		  sendCommand.writeCommand("1");
+				} catch (SerialPortException e1) {
+					System.out.println("[SendCommand] Forward command ERROR");
+					e1.printStackTrace();
+				}
+            }
+        };
+        forwardButton.registerKeyboardAction(pressAction, KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
+        arrowsPanel.add(forwardButton);
+	}
+	
+	private void doBackwardButton(){
+		ImageIcon image = new ImageIcon("img/backward.png");
+		this.backwardButton = new JButton("",image);
+		backwardButton.setBounds(75,50,50,50);
+		
+		ActionListener pressAction = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	System.out.println("2");
+            }
+        };
+		backwardButton.registerKeyboardAction(pressAction, KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
+		arrowsPanel.add(backwardButton);
+	}
+	
+	private void doLeftButton(){
+		ImageIcon image = new ImageIcon("img/left.png");
+		this.leftButton = new JButton("",image);
+		leftButton.setBounds(25,50,50,50);
+		
+		ActionListener pressAction = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	System.out.println("3");
+            }
+        };
+        leftButton.registerKeyboardAction(pressAction, KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
+		arrowsPanel.add(leftButton);
+	}
+	
+	private void doRightButton(){
+		ImageIcon image = new ImageIcon("img/right.png");
+		this.rightButton = new JButton("",image);
+		rightButton.setBounds(125,50,50,50);
+		
+		ActionListener pressAction = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	System.out.println("4");
+            }
+        };
+        rightButton.registerKeyboardAction(pressAction, KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
+		arrowsPanel.add(rightButton);
+	}
+	
+	public JPanel getArrowsPanel(){
+		doPanel();
+		doForwardButton();
+		doBackwardButton();
+		doLeftButton();
+		doRightButton();
+		return arrowsPanel;
+	}
+}

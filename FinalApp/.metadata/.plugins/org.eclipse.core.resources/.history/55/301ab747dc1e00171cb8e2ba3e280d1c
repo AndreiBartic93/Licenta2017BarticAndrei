@@ -1,0 +1,157 @@
+package gui;
+
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.KeyStroke;
+
+import jssc.SerialPortException;
+import pc_ArduinoComm.SendCommand;
+
+public class EnvironmentDataPanel {
+	
+	private JPanel settingsPanel;
+	private JLabel enviromentLabel;	
+	private JLabel temperatureLabel;	
+	private JLabel humidityLabel;	
+	private JButton getEnvironmentData;
+	
+	
+	
+	
+	private JComboBox portList;
+	private JLabel portListTitle;
+	private JLabel portListResult;
+	private JButton submitPort;
+	private String choosenPort=null;
+	private SendCommand sendCommand;
+	private JPanel panel;
+	
+	public EnvironmentDataPanel(JPanel panel, SendCommand sendCommand){
+		this.sendCommand = sendCommand;
+		this.panel = panel;
+	}
+
+	private void doEnvironmentLabels(){
+		this.enviromentLabel = new JLabel("Environment data:");
+		
+		this.humidityLabel = new JLabel("Humidity:");
+		
+		this.enviromentLabel.setBounds(400, 10, 110, 20);
+		this.panel.add(enviromentLabel);	
+	}
+	
+	private void doTemperatureLabel(int value){
+		this.temperatureLabel = new JLabel("Temperature: "+value);
+		this.temperatureLabel.setBounds(400, 80, 110, 20);
+		this.panel.add(temperatureLabel);
+	}
+	
+	private void doHumidityrLabel(int value){
+		this.humidityLabel = new JLabel("Humidity: "+value);
+		this.humidityLabel.setBounds(400, 100, 110, 20);
+		this.panel.add(humidityLabel);
+	}
+	/**
+	 * 
+	 */
+	private void doEnvironmentButton(){
+		this.getEnvironmentData = new JButton("Refresh");
+		this.getEnvironmentData.setBounds(400,30,80,20);
+		
+		int temperatureValue;
+		getEnvironmentData.addActionListener( new ActionListener()
+		{
+		    public void actionPerformed(ActionEvent e)
+		    {
+		    	try {
+					sendCommand.writeCommand("E");
+					byte[] rec = sendCommand.readSerial();
+					if(rec.length == 2){
+						doTemperatureLabel(rec[0]);
+						doHumidityrLabel(rec[1]);
+					}
+				} catch (SerialPortException e1) {
+					e1.printStackTrace();
+				}
+		    	//doTemperatureLabel(value);
+		    }
+		});
+		this.panel.add(getEnvironmentData);	
+	}
+	
+	public void doEnvironmentData(){
+		doEnvironmentLabels();
+		doEnvironmentButton();
+		doTemperatureLabel(0);
+		doHumidityrLabel(0);
+	}
+	/*
+	 * 	public JButton doGearOne(){
+		
+		gearOneButton.setBounds(10,320,44,55);
+		ActionListener pressAction = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+            	  try {
+            		  String command = "1";
+            		  if(command.equals("1")){
+            			  setBorderForGear(1);
+            		  }
+            		  sendCommand.writeCommand(command);
+            		  
+				} catch (SerialPortException e1) {
+					System.out.println("[SendCommand] Gear one error");
+					e1.printStackTrace();
+				}
+            }
+        };
+        gearOneButton.registerKeyboardAction(pressAction, KeyStroke.getKeyStroke(KeyEvent.VK_1, 0), JComponent.WHEN_IN_FOCUSED_WINDOW);
+        return gearOneButton;
+	}
+	 */
+	
+	
+	public void doPortList(){
+		//TODO: CONSOLE
+		 
+		this.portListTitle = new JLabel("Port:");
+		this.portListResult = new JLabel();
+		this.submitPort = new JButton("Connect");
+		String[] ports = sendCommand.listPorts();
+		this.portList = new JComboBox(ports);
+		portList.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+		    	choosenPort = (String)portList.getSelectedItem();
+		    }
+		});
+		
+		submitPort.addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent e){
+                if(!choosenPort.equals(null)){
+                	if(sendCommand.init(choosenPort)){
+                		portListResult.setText("You are connected on: "+choosenPort);
+                	}else{
+                		portListResult.setText("Connection fail");
+                	}
+                }
+            }
+        });
+		
+		portListTitle.setBounds(10, 10, 30, 20);
+		submitPort.setBounds(130, 10, 100, 20);
+		portList.setBounds(50, 10, 70, 20);
+		//portListResult.setBounds(x, y, width, height);
+		panel.add(portListTitle);
+		panel.add(portList);
+		panel.add(submitPort);
+	}
+	
+}

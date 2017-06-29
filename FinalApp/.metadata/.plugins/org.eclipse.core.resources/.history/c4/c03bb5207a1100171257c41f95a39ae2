@@ -1,0 +1,42 @@
+package gui;
+
+import java.awt.Color;
+
+import javax.swing.BorderFactory;
+import javax.swing.JPanel;
+
+import pc_ArduinoComm.SendCommand;
+
+public class MainPanelGenerator {
+	
+	private JPanel mainPanel;
+	private ButtonGenerator buttonGenerator;
+	private SettingsPanel settingsPanel
+	private SendCommand sendcommand;
+	
+	public MainPanelGenerator(SendCommand sendCommand){
+		this.sendcommand = sendCommand;
+		this.mainPanel = new JPanel();
+		this.buttonGenerator = new ButtonGenerator(sendCommand);
+		mainPanel.setLayout(null);
+		mainPanel.setVisible(true);
+	}
+	
+	public JPanel createMainPanel(){
+		this.mainPanel.add(buttonGenerator.doGearOne());
+		this.mainPanel.add(buttonGenerator.doGearTwo());
+		this.mainPanel.add(buttonGenerator.doGearThree());
+		this.mainPanel.add(buttonGenerator.doGearFour());
+		this.mainPanel.add(buttonGenerator.doGearFive());
+		this.mainPanel.add(buttonGenerator.doGearSix());
+		this.mainPanel.add(buttonGenerator.doForwardButton());
+		this.mainPanel.add(buttonGenerator.doBackwardButton());
+		this.mainPanel.add(buttonGenerator.doLeftButton());
+		this.mainPanel.add(buttonGenerator.doRightButton());
+		this.mainPanel.add(buttonGenerator.doManualButton());
+		this.mainPanel.add(buttonGenerator.doAutoButton());
+		return mainPanel;
+	}
+	
+	
+}

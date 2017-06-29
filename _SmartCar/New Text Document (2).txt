@@ -1,0 +1,39 @@
+
+
+#include <Arduino.h>
+#include <ServoTimer2.h>
+#include "VirtualWire.h"
+#include "Engine.h"
+#include "EngineMaster.h"
+#include "Led.h"
+#include "RadioSlave.h"
+#include "ServoEngine.h"
+//radio
+Engine engineA(2, 3);
+Engine engineB(4, 5);
+EngineMaster engineMaster(&engineA, &engineB);
+RadioSlave radioSlave(6, A0);
+byte commandReceived;
+//end-radio
+
+//Servo Test
+ServoTimer2 servoTimer;
+ServoEngine servoEngine(&servoTimer, 6);
+//end servo test
+
+void setup()
+{
+	Serial.begin(9600);
+	radioSlave.setup();
+	pinMode(A0, INPUT);
+}
+
+void loop()
+{
+	servoEngine.goToDegree(5);
+	delay(2000);
+	servoEngine.goToDegree(90);
+	delay(2000);
+	servoEngine.goToDegree(180);
+	delay(2000);
+}
